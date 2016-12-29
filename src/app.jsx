@@ -10,6 +10,8 @@ import styles from './styles'; // eslint-disable-line no-unused-vars
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { render } from 'react-dom';
 
+import ReactComponent from './export.js';
+
 render((
     <div className="container">
         <div className="row">
@@ -18,7 +20,7 @@ render((
                 <p>Feel free to start hacking!</p>
             </div>
             <div className="col-sm-12">
-                <img src="/img/thumbs-up.png" width="250" />
+                <ReactComponent />
             </div>
         </div>
     </div>

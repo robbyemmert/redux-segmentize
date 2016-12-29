@@ -1,3 +1,12 @@
+/**
+ * CONFIGURE THESE VARIABLES ON A PROJECT BY PROJECT BASIS
+ */
+
+const libraryName = 'ReactComponent';
+const exportFileName = 'js/react-component.js';
+
+// -----------------------------------
+
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -23,34 +32,31 @@ var devConfig = {
     devtool: 'source-map',
     module: {
         // Pre Loaders run before the transpiler.  They're great for unit testing, code linting, etc.
-		preLoaders: [
-            {
-                test: /\.jsx?$/,
-                loaders: ['eslint'],
-                exclude: /node_modules/
-            }
-        ],
+        preLoaders: [{
+            test: /\.jsx?$/,
+            loaders: ['eslint'],
+            exclude: /node_modules/
+        }],
         // Loaders are what manage all of your actual code and assets.
-        loaders: [
-            {    // CSS/Sass loader config
+        loaders: [{ // CSS/Sass loader config
                 test: /\.s?css$/,
                 loaders: ['style', 'css', 'postcss', 'sass']
             },
-            {    // ES6 loader config
+            { // ES6 loader config
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: ['babel']
             },
-            {   // Import fonts
+            { // Import fonts
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loaders: ['file?name=fonts/[name].[ext]']
             }
         ]
     },
     // Post CSS is a nifty plugin for normalizing your styles.  Often times, 3rd-party plugins like this one will require their own config block.
-	postcss: [
-		autoprefixer({ browsers: ['last 3 versions'] })	// Automatically adds vendor prefixes for x browser versions (and all vendors). :D
-	],
+    postcss: [
+        autoprefixer({ browsers: ['last 3 versions'] }) // Automatically adds vendor prefixes for x browser versions (and all vendors). :D
+    ],
     plugins: [
         // HtmlWebpackPlugin is what Automatically injects your styles and javascript into your index.html file.
         new HtmlWebpackPlugin({
@@ -59,8 +65,8 @@ var devConfig = {
         }),
         // We're letting webpack know that we're in a development environment
         new webpack.DefinePlugin({
-			'process.env.NODE_ENV': '"development"'
-		})
+            'process.env.NODE_ENV': '"development"'
+        })
     ],
     devServer: {
         historyApiFallback: true,
@@ -79,41 +85,40 @@ var devConfig = {
 var buildConfig = {
     entry: './src/app.jsx',
     output: {
+        library: libraryName,
+        libraryTarget: 'umd',
         publicPath: '/',
-        path: __dirname + '/public',
-        filename: 'js/app.js'
+        path: __dirname + '/dist',
+        filename: exportFileName
     },
     devtool: 'source-map',
     module: {
         // Pre Loaders run before the transpiler.  They're great for unit testing, code linting, etc.
-		preLoaders: [
-            {
-                test: /\.jsx?$/,
-                loaders: ['eslint'],
-                exclude: /node_modules/
-            }
-        ],
+        preLoaders: [{
+            test: /\.jsx?$/,
+            loaders: ['eslint'],
+            exclude: /node_modules/
+        }],
         // Loaders are what manage all of your actual code and assets.
-        loaders: [
-            {    // CSS/Sass loader config
+        loaders: [{ // CSS/Sass loader config
                 test: /\.s?css$/,
                 loader: cssExtractor.extract(['css', 'postcss', 'sass'])
             },
-            {    // ES6 loader config
+            { // ES6 loader config
                 test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: ['babel']
             },
-            {   // Import fonts
+            { // Import fonts
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loaders: ['file?name=fonts/[name].[ext]']
             }
         ]
     },
     // Post CSS is a nifty plugin for normalizing your styles.  Often times, 3rd-party plugins like this one will require their own config block.
-	postcss: [
-		autoprefixer({ browsers: ['last 3 versions'] })	// Automatically adds vendor prefixes for x browser versions (and all vendors). :D
-	],
+    postcss: [
+        autoprefixer({ browsers: ['last 3 versions'] }) // Automatically adds vendor prefixes for x browser versions (and all vendors). :D
+    ],
     plugins: [
         // HtmlWebpackPlugin is what Automatically injects your styles and javascript into your index.html file.
         new HtmlWebpackPlugin({
@@ -122,8 +127,8 @@ var buildConfig = {
         }),
         // We're letting webpack know that we're in a development environment
         new webpack.DefinePlugin({
-			'process.env.NODE_ENV': '"production"'
-		}),
+            'process.env.NODE_ENV': '"production"'
+        }),
         new CleanWebpackPlugin(['public/fonts', 'public/js', 'public/styles', 'public/index.html']),
         cssExtractor,
         new webpack.optimize.UglifyJsPlugin({
@@ -153,9 +158,9 @@ var buildConfig = {
  */
 switch (lifecycleEvent) {
     case 'build':
-    module.exports = buildConfig;
-    break;
+        module.exports = buildConfig;
+        break;
     default:
-    module.exports = devConfig;
-    break;
+        module.exports = devConfig;
+        break;
 }
