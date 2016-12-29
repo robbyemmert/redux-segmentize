@@ -1,8 +1,8 @@
 {
-    "name": "jsbuild",
+    "name": "react-component-starter-kit",
     "version": "1.0.0",
     "description": "A set of modern build tools for JavaScript",
-    "main": "src/export.js",
+    "main": "dist/js/react-component.js",
     "scripts": {
         "start": "./node_modules/.bin/webpack-dev-server --colors --progress --inline",
         "build": "./node_modules/.bin/webpack --progress --colors"
