@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-export default class ReactComponent extends React.Component {
+export class ReactComponent extends React.Component {
     render() {
         return (
             <div id={this.props.id} className={['component-react-component', this.props.className].join(' ')}>

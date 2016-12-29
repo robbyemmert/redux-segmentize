@@ -10,7 +10,7 @@ import styles from './styles'; // eslint-disable-line no-unused-vars
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { render } from 'react-dom';
 
-import ReactComponent from './export.js';
+import {ReactComponent} from './export.js';
 
 render((
     <div className="container">
