@@ -11,17 +11,19 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { render } from 'react-dom';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { segmentReducer } from './redux-segment';
+import { segmentReducer } from './redux-segmentize';
 
-import Counter from './sample-component';
+import { Counter, CustomComponent } from './sample-components';
 import {
     countReducer,
-    customValue
+    customValue,
+    revisionCount
 } from './sample-reducers';
 
 const rootReducer = combineReducers({
     count: segmentReducer(countReducer),
-    customValue
+    customValue,
+    revisionCount: segmentReducer(revisionCount)
 });
 
 const store = createStore(rootReducer);
@@ -37,9 +39,12 @@ render((
                 </div>
                 <div className="col-sm-12">
                     <Counter />
-                    <Counter />
-                    <Counter />
-                    <Counter />
+                    <Counter subscriberID="customIdentifier" />
+                    <Counter id="anotherCustomIdentifier" />
+                    <Counter id="dontUseThisID" subscriberID="useThisID" />
+                    <Counter subscriberID="componentsLinked"/>
+                    <Counter subscriberID="componentsLinked"/>
+                    <CustomComponent />
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
 {
-  "name": "react-component-starter-kit",
+  "name": "redux-segmentize",
   "version": "1.0.0",
-  "description": "A set of modern build tools for JavaScript",
-  "main": "dist/js/react-component.js",
+  "description": "Automatically manage state for all of your components with Redux",
+  "main": "dist/js/redux-segmentize.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --colors --progress --inline",
     "build": "./node_modules/.bin/webpack --progress --colors"
@@ -29,15 +29,15 @@
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
+    "react-router": "^2.5.1",
+    "react-dom": "^15.1.0",
+    "redux-thunk": "^2.1.0",
+    "bootstrap-grid": "^2.0.1",
     "webpack-dev-server": "^1.15.1"
   },
-  "dependencies": {
-    "bootstrap-grid": "^2.0.1",
+  "peerDependencies": {
     "react": "^15.1.0",
-    "react-dom": "^15.1.0",
     "react-redux": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz",
-    "react-router": "^2.5.1",
-    "redux": "https://registry.npmjs.org/redux/-/redux-3.6.0.tgz",
-    "redux-thunk": "^2.1.0"
+    "redux": "https://registry.npmjs.org/redux/-/redux-3.6.0.tgz"
   }
 }

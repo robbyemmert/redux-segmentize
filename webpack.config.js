@@ -3,7 +3,7 @@
  */
 
 const libraryName = 'ReactComponent';
-const exportFileName = 'js/react-component.js';
+const exportFileName = 'js/redux-segmentize.js';
 
 // -----------------------------------
 

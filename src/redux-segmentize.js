@@ -22,7 +22,7 @@ const initializeComponent = (id, watchingIds) => ({ type: INIT, subscriberID: id
 var options = Object.assign({
     idArg: 'instanceID',
     nameArg: 'segmentName',
-    subscriberIDFunc: props => props.id || generateUUID()
+    subscriberIDFunc: props => props.subscriberID || props.id || generateUUID()
 }, options);
 
 export function segmentConnect(...maps) {
