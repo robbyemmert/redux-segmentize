@@ -96,7 +96,6 @@ export function segmentConnect(...maps) {
 export function segmentReducer(reducer) {
 
     return (state, action) => {
-        console.log('state change', action.type, action);
 
         state = state || {
             isSegment: true,
