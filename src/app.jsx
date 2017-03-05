@@ -37,6 +37,9 @@ render((
                 </div>
                 <div className="col-sm-12">
                     <Counter />
+                    <Counter />
+                    <Counter />
+                    <Counter />
                 </div>
             </div>
         </div>

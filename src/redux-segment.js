@@ -61,7 +61,7 @@ export function segmentConnect(...maps) {
                 Object.keys(actions).forEach(actionKey => {
                     let action = actions[actionKey];
                     bundledActions[actionKey] = (...args) => {
-                        return this.props.dispatch(Object.assign({}, action(args), {
+                        return this.props.dispatch(Object.assign({}, action(...args), {
                             subscriberID
                         }));
                     }
@@ -75,11 +75,7 @@ export function segmentConnect(...maps) {
                 let segmentedProps = {};
                 this.state.watchingSegments.forEach(seg => {
                     let segment = props[seg.prop];
-                    if (segment.instances.hasOwnProperty(this.state.subscriberID)) {
-                        segmentedProps[seg.prop] = segment.instances[this.state.subscriberID];
-                    } else {
-                        segmentedProps[seg.prop] = segment.defaultValue;
-                    }
+                    segmentedProps[seg.prop] = extractProp(segment, this.state.subscriberID);
                 });
                 return segmentedProps;
             }
@@ -122,4 +118,12 @@ export function segmentReducer(reducer) {
 
         return state;
     }
+}
+
+export function extractProp(prop, key) {
+    if (prop && typeof prop.instances === 'object') {
+        return prop.instances.hasOwnProperty(key) ? prop.instances[key] : prop.defaultValue;
+    }
+
+    return undefined;
 }
