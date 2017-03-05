@@ -4039,7 +4039,7 @@
     },
     "react-redux": {
       "version": "4.4.6",
-      "from": "react-redux@>=4.4.5 <5.0.0",
+      "from": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz",
       "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz"
     },
     "react-router": {
@@ -4097,7 +4097,7 @@
     },
     "redux": {
       "version": "3.6.0",
-      "from": "redux@>=3.5.2 <4.0.0",
+      "from": "https://registry.npmjs.org/redux/-/redux-3.6.0.tgz",
       "resolved": "https://registry.npmjs.org/redux/-/redux-3.6.0.tgz"
     },
     "redux-thunk": {
