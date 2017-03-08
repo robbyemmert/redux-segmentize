@@ -1,6 +1,6 @@
 {
   "name": "redux-segmentize",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Automatically manage state for all of your components with Redux",
   "main": "dist/js/redux-segmentize.js",
   "scripts": {
@@ -8,6 +8,10 @@
     "build": "./node_modules/.bin/webpack --progress --colors"
   },
   "author": "Robby Emmert",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robbyemmert/redux-segmentize.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
