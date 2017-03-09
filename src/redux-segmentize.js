@@ -13,7 +13,6 @@ function generateUUID () { // Public Domain/MIT
     });
 }
 
-
 const INIT = 'REDUX_SEGMENT_INIT_COMPONENT';
 
 // Actions
