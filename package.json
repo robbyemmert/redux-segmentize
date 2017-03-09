@@ -1,6 +1,6 @@
 {
   "name": "redux-segmentize",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Automatically manage state for all of your components with Redux",
   "main": "dist/js/redux-segmentize.js",
   "scripts": {
