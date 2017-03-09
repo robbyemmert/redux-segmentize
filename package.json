@@ -1,6 +1,6 @@
 {
   "name": "redux-segmentize",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Automatically manage state for all of your components with Redux",
   "main": "dist/js/redux-segmentize.js",
   "scripts": {
@@ -41,7 +41,7 @@
   },
   "peerDependencies": {
     "react": "^15.1.0",
-    "react-redux": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz",
-    "redux": "https://registry.npmjs.org/redux/-/redux-3.6.0.tgz"
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0"
   }
 }
