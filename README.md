@@ -51,7 +51,7 @@ const select = state => {
     }
 }
 
-export default segmentConnect(select)(BaseCounter);
+export default segmentConnect(select)(CoolButton);
 ```
 Literally the only thing you need to change at this point is to use `segmentConnect` instead of `react-redux`'s `connect`.
 
@@ -81,7 +81,7 @@ const select = state => {
     }
 }
 
-export default segmentConnect(select)(BaseCounter, actions);
+export default segmentConnect(select)(CoolButton, actions);
 ```
 
 Notice, we've updated the onClick listener for the button.  Also, dispatch is automatically called for you.  In this case, executing the `click` function will dispatch your click event, appending a `subscriberID` attribute to the resulting object with the id of your component (it uses the `id` prop if available, otherwise it generates a unique identifier).  Your segmented reducer then applies that action to your reducer, storing the resulting value under your component's identifier, within your segment.  Your component also looks up that value with the same identifier.
