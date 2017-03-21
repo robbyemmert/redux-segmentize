@@ -83,7 +83,7 @@ var devConfig = {
 }
 
 var buildConfig = {
-    entry: './src/app.jsx',
+    entry: './src/redux-segmentize.js',
     output: {
         library: libraryName,
         libraryTarget: 'umd',
