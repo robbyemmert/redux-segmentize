@@ -33,6 +33,16 @@ function select(state) {
 
 export const Counter = segmentConnect(select)(BaseCounter, counterActions);
 
+function flatStateSelect(state) {
+    return {
+        count: state.flatCount,
+        customValue: state.customValue,
+        revisionCount: state.revisionCount
+    }
+}
+
+export const FlatStateCounter = segmentConnect(flatStateSelect)(BaseCounter, counterActions);
+
 export const CustomComponentBase = props => {
     return (
         <div>

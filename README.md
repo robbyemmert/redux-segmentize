@@ -169,3 +169,62 @@ const select = state => {
 
 export default segmentConnect(select)(ReportClicks, actions);
 ```
+
+### Dispatching Actions Manually Against Segmented State
+If you want to dispatch actions outside of the context of a segmented component, there are 2 methods.
+
+**Method 1**
+Simply add subscriber ID to your actions
+
+```javascript
+const action = (some, stuff, subscriberID) => {
+    return {
+        type: 'SOME_TYPE',
+        some,
+        stuff,
+        subscriberID
+    }
+}
+```
+
+**Method 2**
+Wrap actions with the `segmentActions` or `segmentAction` convenience methods, so you don't have to pass subscriberID in every time.
+
+```javascript
+const action = (some, stuff) => {
+    return {
+        type: 'SOME_TYPE',
+        some,
+        stuff
+    }
+}
+
+const wrappedAction = segmentAction(action, 'MySubscriberID');
+
+...
+
+store.dispatch(wrappedAction(123, 321));
+```
+
+```javascript
+const actions = {
+    action1: some => ({ type: 'SOME_EVENT' }),
+    action2: thing => ({ type: 'ANOTHER_EVENT' })
+}
+
+const wrappedActions = segmentActions(actions, 'MySubscriberID');
+
+store.dispatch(wrappedActions.action1(123))
+store.dispatch(wrappedActions.action2(321))
+
+```
+
+### Flat(er) State Reducers
+If you want to have a more flat state, and/or have a little more explicit control over your state structure, you can use `linkReducer` instead of `segmentReducer`.  `linkReducer` will only track one subscriberID, and thus will give you explicit control over it's contents.  Segmented components also know intuitively how to read linked reducers.
+
+```javascript
+const rootReducer = combineReducers({
+    clicks: linkReducer(clicksReducer, 'MySubscriberID'),
+    ...
+});
+```

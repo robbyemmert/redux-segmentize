@@ -118,10 +118,65 @@ export function segmentReducer(reducer) {
     }
 }
 
+export function linkReducer(reducer, subscriberID) {
+    return (state, action) => {
+        state = state || {
+            isSegment: true,
+            isFlatSegment: true,
+            segmentID: generateUUID(),
+            subscriberID: subscriberID,
+            value: reducer(undefined, action),
+            defaultValue: reducer(undefined, action)
+        }
+
+        let isActionFromSubscriber = action.subscriberID === subscriberID;
+
+        if (isActionFromSubscriber) {
+            return Object.assign({}, state, {
+                value: reducer(state.value, action)
+            });
+        }
+
+        return state;
+    }
+}
+
 export function extractProp(prop, key) {
+
     if (prop && typeof prop.instances === 'object') {
         return prop.instances.hasOwnProperty(key) ? prop.instances[key] : prop.defaultValue;
+    } else if (prop.isFlatSegment) {
+        return prop.value;
     }
 
     return undefined;
+}
+
+/**
+ * Wrap an action creater to always append a subscriber ID to resulting actions.
+ * @param {function} action The action to wrap 
+ * @param {string} subscriberID The subscriber ID to append
+ */
+export function segmentAction(action, subscriberID) {
+    return (...args) => {
+        let actionObj = action(...args);
+        return Object.assign({}, actionObj, {
+            subscriberID
+        });
+    }
+}
+
+/**
+ * Wrap a hash of action creator functions to always append a subscriber ID to resulting actions.
+ * @param {object} actions A hash of functions to wrap 
+ * @param {string} subscriberID The subscriber ID to append to all resulting actions 
+ */
+export function segmentActions(actions, subscriberID) {
+    let out = {};
+    Object.keys(actions).forEach(key => {
+        let action = actions[key];
+        out[key] = segmentAction(action, subscriberID);
+    });
+
+    return out;
 }

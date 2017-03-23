@@ -11,9 +11,9 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { render } from 'react-dom';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { segmentReducer } from './redux-segmentize';
+import { segmentReducer, linkReducer } from './redux-segmentize';
 
-import { Counter, CustomComponent } from './sample-components';
+import { Counter, CustomComponent, FlatStateCounter } from './sample-components';
 import {
     countReducer,
     customValue,
@@ -23,7 +23,8 @@ import {
 const rootReducer = combineReducers({
     count: segmentReducer(countReducer),
     customValue,
-    revisionCount: segmentReducer(revisionCount)
+    revisionCount: segmentReducer(revisionCount),
+    flatCount: linkReducer(countReducer, 'linkedCounter')
 });
 
 const store = createStore(rootReducer);
@@ -38,13 +39,18 @@ render((
                     <p>Feel free to start hacking!</p>
                 </div>
                 <div className="col-sm-12">
+                    <h3>Sample Counters with Segmentize</h3>
                     <Counter />
                     <Counter subscriberID="customIdentifier" />
                     <Counter id="anotherCustomIdentifier" />
                     <Counter id="dontUseThisID" subscriberID="useThisID" />
+                    <h3>Linked Counters</h3>
                     <Counter subscriberID="componentsLinked"/>
                     <Counter subscriberID="componentsLinked"/>
+                    <h3>Linked Component</h3>
                     <CustomComponent />
+                    <h3>Counters Using Linked Reducers (Flatter than Segmented Reducers)</h3>
+                    <FlatStateCounter subscriberID="linkedCounter"/>
                 </div>
             </div>
         </div>
