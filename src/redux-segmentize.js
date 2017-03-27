@@ -14,9 +14,11 @@ function generateUUID () { // Public Domain/MIT
 }
 
 const INIT = 'REDUX_SEGMENT_INIT_COMPONENT';
+const UNMOUNT = 'REDUX_SEGMENT_UNMOUNT_COMPONENT';
 
 // Actions
 const initializeComponent = (id, watchingIds) => ({ type: INIT, subscriberID: id, watchingIds });
+const unmountComponent = (id) => ({ type: UNMOUNT, subscriberID: id });
 
 var options = Object.assign({
     idArg: 'instanceID',
@@ -70,6 +72,11 @@ export function segmentConnect(...maps) {
                 this.props.dispatch(initializeComponent(subscriberID, watchingSegments.map(seg => seg.segmentID)));
             }
 
+            componentWillUnmount() {
+                let subscriberID = this.state.subscriberID;
+                this.props.dispatch(unmountComponent(subscriberID));
+            }
+
             reduceSegmentedProps(props) {
                 let segmentedProps = {};
                 this.state.watchingSegments.forEach(seg => {
@@ -105,6 +112,16 @@ export function segmentReducer(reducer) {
 
         let isActionFromSubscriber = state.instances.hasOwnProperty(action.subscriberID);
         let isNewSubscriber = action.type === INIT && Array.isArray(action.watchingIds) && action.watchingIds.indexOf(state.segmentID) >= 0;
+        let isUnmountingSubscriber = action.type === UNMOUNT;
+
+        if (isUnmountingSubscriber) {
+            let newInstances = Object.assign({}, state.instances);
+            delete newInstances[action.subscriberID];
+
+            return Object.assign({}, state, {
+                instances: newInstances
+            });
+        }
 
         if (isNewSubscriber || isActionFromSubscriber) {
             return Object.assign({}, state, {

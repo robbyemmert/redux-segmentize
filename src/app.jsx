@@ -30,6 +30,27 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 window.s = store;
 
+class CleanupTester extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            show: false
+        }
+    }
+
+    render() {
+        let counter = this.state.show ? (<Counter />) : null;
+
+        return (
+            <div className="cleanupTester">
+                <button onClick={() => this.setState({ show: !this.state.show })}>{ this.state.show ? 'Hide' : 'Show' }</button>
+                { counter }
+            </div>
+        )
+    }
+}
+
 render((
     <Provider store={store}>
         <div className="container">
@@ -51,6 +72,8 @@ render((
                     <CustomComponent />
                     <h3>Counters Using Linked Reducers (Flatter than Segmented Reducers)</h3>
                     <FlatStateCounter subscriberID="linkedCounter"/>
+                    <h3>Clean up on unmount to prevent memory leaks</h3>
+                    <CleanupTester />
                 </div>
             </div>
         </div>
